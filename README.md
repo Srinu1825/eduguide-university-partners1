@@ -30,4 +30,4 @@ A responsive static webpage built using **HTML, CSS, and JavaScript** to showcas
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Srinu1825/eduguide-university-partners.git
+   git clone https://github.com/Srinu1825/eduguide-university-partners1.git
