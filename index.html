@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduGuide | University Partners</title>
+  <style>
+    :root {
+      --light-purple: #B7ADEB;
+      --peach: #F9D2A7;
+      --soft-gray: #E0E0E3;
+      --deep-purple: #5C44BF;
+      --navy-blue: #1E1E63;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--soft-gray);
+      color: var(--navy-blue);
+    }
+
+    header {
+      background-color: var(--deep-purple);
+      padding: 1rem;
+      color: white;
+      text-align: center;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filters select {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: none;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 4rem;
+      column-gap: 2rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    @media (max-width: 768px) {
+      .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .card img.logo {
+      width: 100%;
+      max-height: 80px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    .card .info h3 {
+      margin: 0.5rem 0 0.3rem;
+      color: var(--deep-purple);
+      font-size: 1.1rem;
+    }
+
+    .card .info p {
+      font-size: 0.9rem;
+      margin: 0.3rem 0 0.8rem;
+    }
+
+    .card .info .flag {
+      width: 20px;
+      height: 14px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .card .info a {
+      display: inline-block;
+      color: var(--navy-blue);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EduGuide University Partners</h1>
+    <div class="filters">
+      <select id="countryFilter">
+        <option value="all">All Countries</option>
+        <option value="usa">USA</option>
+        <option value="uk">UK</option>
+        <option value="australia">Australia</option>
+      </select>
+      <select id="streamFilter">
+        <option value="all">All Streams</option>
+        <option value="engineering">Engineering</option>
+        <option value="business">Business</option>
+        <option value="arts">Arts</option>
+      </select>
+      <select id="scholarshipFilter">
+        <option value="all">All Scholarships</option>
+        <option value="yes">With Scholarship</option>
+        <option value="no">Without Scholarship</option>
+      </select>
+    </div>
+  </header>
+
+  <main>
+    <div id="universityGrid" class="grid-container"></div>
+  </main>
+
+  <script>
+    const universities = [
+      {
+        name: "Harvard University",
+        logo: "https://logo.clearbit.com/harvard.edu",
+        description: "A top-tier research university in the USA.",
+        country: "usa",
+        stream: "engineering",
+        scholarship: "yes",
+        link: "https://www.harvard.edu",
+        flag: "https://flagcdn.com/us.svg"
+      },
+      {
+        name: "University of Oxford",
+        logo: "https://logo.clearbit.com/ox.ac.uk",
+        description: "Renowned university offering world-class education in the UK.",
+        country: "uk",
+        stream: "arts",
+        scholarship: "no",
+        link: "https://www.ox.ac.uk",
+        flag: "https://flagcdn.com/gb.svg"
+      },
+      {
+        name: "University of Melbourne",
+        logo: "https://logo.clearbit.com/unimelb.edu.au",
+        description: "Premier institution in Australia with diverse programs.",
+        country: "australia",
+        stream: "business",
+        scholarship: "yes",
+        link: "https://www.unimelb.edu.au",
+        flag: "https://flagcdn.com/au.svg"
+      },
+      {
+        name: "Stanford University",
+        logo: "https://logo.clearbit.com/stanford.edu",
+        description: "Innovative leader in technology and entrepreneurship.",
+        country: "usa",
+        stream: "engineering",
+        scholarship: "no",
+        link: "https://www.stanford.edu",
+        flag: "https://flagcdn.com/us.svg"
+      },
+      {
+        name: "University of Cambridge",
+        logo: "https://logo.clearbit.com/cam.ac.uk",
+        description: "Historic and prestigious university in the UK.",
+        country: "uk",
+        stream: "business",
+        scholarship: "yes",
+        link: "https://www.cam.ac.uk",
+        flag: "https://flagcdn.com/gb.svg"
+      },
+      {
+        name: "Australian National University",
+        logo: "https://logo.clearbit.com/anu.edu.au",
+        description: "Leading Australian university known for research excellence.",
+        country: "australia",
+        stream: "arts",
+        scholarship: "no",
+        link: "https://www.anu.edu.au",
+        flag: "https://flagcdn.com/au.svg"
+      }
+    ];
+
+    const universityGrid = document.getElementById("universityGrid");
+    const filters = [
+      document.getElementById("countryFilter"),
+      document.getElementById("streamFilter"),
+      document.getElementById("scholarshipFilter")
+    ];
+
+    function renderCards() {
+      const [country, stream, scholarship] = filters.map(f => f.value);
+      universityGrid.innerHTML = "";
+
+      const filtered = universities.filter(uni =>
+        (country === "all" || uni.country === country) &&
+        (stream === "all" || uni.stream === stream) &&
+        (scholarship === "all" || uni.scholarship === scholarship)
+      );
+
+      if (filtered.length === 0) {
+        universityGrid.innerHTML = '<p style="text-align:center; grid-column: 1 / -1;">No universities found matching the selected filters.</p>';
+        return;
+      }
+
+      filtered.forEach(uni => {
+        universityGrid.innerHTML += `
+          <div class="card">
+            <img class="logo" src="${uni.logo}" alt="${uni.name} logo" />
+            <div class="info">
+              <h3>${uni.name} <img class="flag" src="${uni.flag}" alt="flag" /></h3>
+              <p>${uni.description}</p>
+              <a href="${uni.link}" target="_blank">Visit Website</a>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    filters.forEach(filter => filter.addEventListener("change", renderCards));
+    renderCards();
+  </script>
+</body>
+</html>
